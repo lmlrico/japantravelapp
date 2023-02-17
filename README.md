@@ -4,15 +4,18 @@ As for following the code conventions, I tried to follow them to the best of my 
 
 
 NOTES:
+
  Vue is the main View for this project
+
  For the laravel api calls the port being used is 80000
- MySQL was the DB used for this project
+ 
+MySQL was the DB used for this project
  
 Frameworks and Libraries Used
-Laravel
-Vue + Vite
-Vuex
-Vue-Router
-Axios
+Laravel,
+Vue + Vite,
+Vuex,
+Vue-Router,
+Axios,
 TailwindCSS
 
