@@ -15,10 +15,11 @@
               <Menu as="div" class="relative ml-3">
                 <div>
                   <MenuButton
-                      v-if="user.name" class="flex max-w-xs items-center text-white"
-                    >
-                      Hello, {{ user.name }}
-                    </MenuButton>
+                    v-if="user.name"
+                    class="flex max-w-xs items-center text-white"
+                  >
+                    Hello, {{ user.name }}
+                  </MenuButton>
                 </div>
                 <transition
                   enter-active-class="transition ease-out duration-100"
@@ -31,11 +32,10 @@
                   <MenuItems
                     class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
                   >
-                    <MenuItem
-                    >
+                    <MenuItem>
                       <a
-                      style="cursor:pointer"
-                      @click="logout()"
+                        style="cursor: pointer"
+                        @click="logout()"
                         class="block px-4 py-2 text-sm text-gray-700"
                         >Sign Out</a
                       >
@@ -72,7 +72,9 @@
           </div>
           <div class="mt-3 space-y-1 px-2">
             <DisclosureButton
-            class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white" @click="logout()">Sign Out</DisclosureButton
+              class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
+              @click="logout()"
+              >Sign Out</DisclosureButton
             >
           </div>
         </div>
@@ -153,7 +155,6 @@ import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 import { computed } from "vue";
 
-
 const store = useStore();
 const router = useRouter();
 function logout() {
@@ -161,7 +162,7 @@ function logout() {
 }
 store.dispatch("getUser");
 
-const user =  computed(() => store.state.user.data)
+const user = computed(() => store.state.user.data);
 </script>
 
 <script>
@@ -228,7 +229,6 @@ export default {
     async searchArea() {
       const center = this.map.getCenter();
       this.weather = await this.getWeather(center);
-      console.log(this.weather);
       this.markers = await this.getNearbyPlaces(center);
       this.places = this.markers;
       this.map.setZoom(13);
@@ -249,7 +249,7 @@ export default {
       );
       const data = await res.json();
 
-      res.status === 200 ? console.log(data) : alert("Error fetching Weather Data");
+      res.status === 200 ? "" : alert("Error fetching Weather Data");
 
       return data;
     },
@@ -268,9 +268,7 @@ export default {
 
       const data = await res.json();
 
-      res.status === 200
-        ? console.log(data.results)
-        : alert("Error fetching Nearby Places");
+      res.status === 200 ? "" : alert("Error fetching Nearby Places");
 
       return data.results;
     },
