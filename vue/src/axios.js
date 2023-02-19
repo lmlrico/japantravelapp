@@ -17,8 +17,9 @@ axiosClient.interceptors.response.use(response => {
   if (error.response.status === 401) {
     sessionStorage.removeItem('TOKEN')
   } else if (error.response.status === 404) {
+    router.push({name: 'Homepage'})
   }
-  return error;
+  return Promise.reject(error.response);
 })
 
 export default axiosClient;
