@@ -10,7 +10,7 @@ const store = createStore( {
     },
     getters: {},
     actions: {
-        register({commit}, user) {
+          register({commit}, user) {
             return axiosClient.post('/register', user)
               .then(({data}) => {
                 commit('setUser', data.user);
@@ -29,7 +29,6 @@ const store = createStore( {
           getUser({commit}) {
             return axiosClient.get('/user')
             .then(res => {
-              console.log(res);
               commit('setUser', res.data)
             })
           },
