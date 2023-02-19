@@ -1,7 +1,7 @@
 <template>
   <div class="flex border-3 border-blue-900 rounded">
     <GMapAutocomplete
-      class="mt-1 px-4 py-2 w-80"
+      class="mt-1 px-4 py-3 w-80"
       placeholder="Search"
       @place_changed="setPlace"
       :options="{ componentRestrictions: { country: 'jp' } }"
