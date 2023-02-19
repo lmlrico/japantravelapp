@@ -33,11 +33,7 @@
                     class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
                   >
                     <MenuItem>
-                      <router-link :to="{ name: 'Login' }" v-if="!user.name" class="block px-4 py-2 text-sm text-gray-700"
-                        >Login/Register</router-link
-                      >
                       <a
-                         v-if="user.name" 
                         style="cursor: pointer"
                         @click="logout()"
                         class="block px-4 py-2 text-sm text-gray-700"
@@ -75,11 +71,11 @@
             </div>
           </div>
           <div class="mt-3 space-y-1 px-2">
-            <router-link :to="{ name: 'Login' }" v-if="!user.name" class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
+            <router-link :to="{ name: 'Login' }" v-if="!user.name" class="block px-4 py-2 text-white"
                         >Login/Register</router-link
                       >
             <DisclosureButton
-               v-if="user.name" 
+              v-if="user.name"
               class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
               @click="logout()"
               >Sign Out</DisclosureButton
@@ -99,7 +95,7 @@
       </button>
       <button
         class="ml-4 bg-gray-700 hover:bg-gray-500 text-white py-3 px-3 rounded"
-        @click="searchArea"
+        @click="searchArea($event)"
       >
         Search This Area
       </button>
@@ -157,6 +153,7 @@ import {
   MenuButton,
   MenuItem,
   MenuItems,
+  SwitchLabel,
 } from "@headlessui/vue";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/vue/24/outline";
 import { useStore } from "vuex";
@@ -168,7 +165,9 @@ const router = useRouter();
 function logout() {
   store.dispatch("logout").then(() => {});
 }
-store.dispatch("getUser");
+if (store.state.user.data.name) {
+  store.dispatch("getUser");
+}
 
 const user = computed(() => store.state.user.data);
 </script>
@@ -234,19 +233,41 @@ export default {
       const controlUIBottom = document.getElementById("bottom-btngrp");
       controlDiv.appendChild(controlUIBottom);
     },
-    async searchArea() {
+    async searchArea(event) {
+      event.target.disabled = true;
+      Swal.fire({
+        title: "Searching the Area",
+        allowOutsideClick: false,
+        showConfirmButton: false,
+        allowEscapeKey: false,
+        didOpen: () => {
+          Swal.showLoading()
+        }
+      });
       const center = this.map.getCenter();
       this.weather = await this.getWeather(center);
       this.markers = await this.getNearbyPlaces(center);
       this.places = this.markers;
       this.map.setZoom(13);
+      Swal.close();
+      event.target.disabled = false;
     },
     async panMap(coords) {
+      Swal.fire({
+        title: "Searching the Area",
+        allowOutsideClick: false,
+        showConfirmButton: false,
+        allowEscapeKey: false,
+        didOpen: () => {
+          Swal.showLoading()
+        }
+      });
       this.map.panTo(coords);
       this.getWeather(coords);
       this.markers = await this.getNearbyPlaces(coords);
       this.places = this.markers;
       this.map.setZoom(13);
+      Swal.close();
     },
     async highlightPlace(fsqid) {
       this.markerid = fsqid;
