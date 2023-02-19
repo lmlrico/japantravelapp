@@ -33,7 +33,11 @@
                     class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
                   >
                     <MenuItem>
+                      <router-link :to="{ name: 'Login' }" v-if="!user.name" class="block px-4 py-2 text-sm text-gray-700"
+                        >Login/Register</router-link
+                      >
                       <a
+                         v-if="user.name" 
                         style="cursor: pointer"
                         @click="logout()"
                         class="block px-4 py-2 text-sm text-gray-700"
@@ -71,7 +75,11 @@
             </div>
           </div>
           <div class="mt-3 space-y-1 px-2">
+            <router-link :to="{ name: 'Login' }" v-if="!user.name" class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
+                        >Login/Register</router-link
+                      >
             <DisclosureButton
+               v-if="user.name" 
               class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
               @click="logout()"
               >Sign Out</DisclosureButton

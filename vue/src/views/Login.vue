@@ -5,7 +5,7 @@
         <h2 class="mt-6 text-center text-3xl font-extrabold text-white">
           Sign in to your account
         </h2>
-        <p class="mt-2 text-center text-sm text-gray-600">
+        <p class="mt-2 text-center text-sm text-gray-200">
           Or
           {{ " " }}
           <router-link
@@ -78,7 +78,7 @@
               v-model="user.remember"
               class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
             />
-            <label for="remember-me" class="ml-2 block text-sm white">
+            <label for="remember-me" class="ml-2 block text-sm text-white">
               Remember me
             </label>
           </div>
@@ -118,9 +118,13 @@
             </svg>
             Sign in
           </button>
-          <router-link :to="{ name: 'Homepage' }" class="font-medium underline text-white"
-            >Back to the Map</router-link
-          >
+          <div class="flex items-center justify-center mt-4">
+            <router-link
+              :to="{ name: 'Homepage' }"
+              class="font-medium underline text-indigo-600 hover:text-indigo-500"
+              >Back to the Map</router-link
+            >
+          </div>
         </div>
       </form>
     </div>
@@ -141,17 +145,16 @@ const user = {
 };
 let errorMsg = ref("");
 
-function login(e) {
+async function login(e) {
   e.preventDefault();
-  store
-    .dispatch("login", user)
-    .then(() => {
-      router.push({
+  try {
+    const response = await store.dispatch("login", user);
+    router.push({
         name: "Homepage",
-      });
-    })
-    .catch((err) => {
-      errorMsg.value = err.response.data.error;
     });
+  } catch (err) {
+    errorMsg.value = err.data.error;
+  }
 }
+
 </script>

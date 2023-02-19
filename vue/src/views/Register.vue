@@ -117,10 +117,10 @@
             </svg>
             Sign up
           </button>
-          <div class="flex items-center">
+          <div class="flex items-center justify-center">
             <router-link
               :to="{ name: 'Homepage' }"
-              class="font-medium underline text-white "
+              class="font-medium underline text-white mt-4"
               >Back to the Map</router-link
             >
           </div>
@@ -141,23 +141,20 @@ const user = {
   name: "",
   email: "",
   password: "",
-  password_confirmation: "",
 };
 const errors = ref({});
 
-function register(e) {
+async function register(e) {
   e.preventDefault();
-  store
-    .dispatch("register", user)
-    .then(() => {
-      router.push({
-        name: "Homepage",
-      });
-    })
-    .catch((error) => {
-      if (error.response.status === 422) {
-        errors.value = error.response.data.errors;
-      }
-    });
-}
+    try {
+        const response = await store.dispatch("register", user)
+        console.log(response.data);
+    } catch (err) {
+        console.error(err.data.errors);
+        errors.value = err.data.errors;
+        
+    }
+};
+
+
 </script>
