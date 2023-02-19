@@ -146,15 +146,13 @@ const errors = ref({});
 
 async function register(e) {
   e.preventDefault();
-    try {
-        const response = await store.dispatch("register", user)
-        console.log(response.data);
-    } catch (err) {
-        console.error(err.data.errors);
-        errors.value = err.data.errors;
-        
-    }
-};
-
-
+  try {
+    const response = await store.dispatch("register", user);
+    router.push({
+      name: "Homepage",
+    });
+  } catch (err) {
+    errors.value = err.data.errors;
+  }
+}
 </script>
