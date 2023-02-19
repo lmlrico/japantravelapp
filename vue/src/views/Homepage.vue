@@ -284,7 +284,7 @@ export default {
     },
     async getNearbyPlaces(coords) {
       const res = await fetch(
-        `https://api.foursquare.com/v3/places/search?ll=${coords.lat()},${coords.lng()}&limit=30&radius=10000&sort=distance
+        `https://api.foursquare.com/v3/places/search?ll=${coords.lat()},${coords.lng()}&limit=50&radius=10000&sort=distance
           &fields=fsq_id,name,geocodes,categories,location,link,rating,hours,price,photos`,
         {
           method: "get",
