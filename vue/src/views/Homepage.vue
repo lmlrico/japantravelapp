@@ -86,7 +86,7 @@
     </Disclosure>
 
     <SearchBar @pan-map="panMap" id="searchbar-component" />
-    <div id="bottom-btngrp" class="mb-5">
+    <div id="bottom-btngrp" class="mb-10 md:mb-5 lg:mb-3">
       <button
         class="bg-gray-700 hover:bg-gray-500 text-white py-3 px-3 rounded"
         @click="openNav"
@@ -118,7 +118,7 @@
               style="height: 90vh"
               :center="{ lat: 35.67965111618601, lng: 139.77028305578466 }"
               ref="myMapRef"
-              :zoom="13"
+              :zoom="14"
               :options="{
                 zoomControl: true,
                 mapTypeControl: false,
@@ -237,6 +237,8 @@ export default {
       event.target.disabled = true;
       Swal.fire({
         title: "Searching the Area",
+        background: '#1F2937',
+        color: '#fff',
         allowOutsideClick: false,
         showConfirmButton: false,
         allowEscapeKey: false,
@@ -248,13 +250,15 @@ export default {
       this.weather = await this.getWeather(center);
       this.markers = await this.getNearbyPlaces(center);
       this.places = this.markers;
-      this.map.setZoom(13);
+      this.map.setZoom(14);
       Swal.close();
       event.target.disabled = false;
     },
     async panMap(coords) {
       Swal.fire({
         title: "Searching the Area",
+        background: '#1F2937',
+        color: '#fff',
         allowOutsideClick: false,
         showConfirmButton: false,
         allowEscapeKey: false,
@@ -266,11 +270,14 @@ export default {
       this.getWeather(coords);
       this.markers = await this.getNearbyPlaces(coords);
       this.places = this.markers;
-      this.map.setZoom(13);
+      this.map.setZoom(14);
       Swal.close();
     },
     async highlightPlace(fsqid) {
       this.markerid = fsqid;
+      if (window.matchMedia("(max-width: 640px)").matches) {
+        this.closeSide()
+      } 
     },
     async getWeather(coords) {
       const res = await fetch(
@@ -317,21 +324,22 @@ export default {
       } else {
         document.getElementById("sidenav-places").classList.add("w-1/3");
       }
+      document.getElementById("sidenav-places").classList.remove("!hidden");
     },
     closeSide() {
       var el = document.getElementById("sidenav-places");
       this.removeWidthSidebar(el);
-      document.getElementById("sidenav-places").classList.add("w-0");
+      document.getElementById("sidenav-places").classList.add("!hidden");
     },
     windowResize(e) {
       var el = document.getElementById("sidenav-places");
       this.removeWidthSidebar(el);
       if (window.matchMedia("(max-width: 640px)").matches) {
-        document.getElementById("sidenav-places").classList.add("w-full");
+        document.getElementById("sidenav-places").classList.add("w-full","!hidden");
       } else {
-        document.getElementById("sidenav-places").classList.add("w-1/3");
+        document.getElementById("sidenav-places").classList.add("w-1/3","!hidden");
       }
-    },
+    }
   },
 };
 </script>
