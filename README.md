@@ -5,9 +5,9 @@ As for following the code conventions, I tried to follow them to the best of my 
 
 NOTES:
 
- Vue is the main View for this project
+ Vue is the main View for this project, please navigate to vue folder to use npm run dev
 
- For the laravel api calls the port being used is 80000
+ For the laravel api calls the port being used is 8000, also needs php artisan serve on laravel directory
  
 MySQL was the DB used for this project
  
