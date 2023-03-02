@@ -9,7 +9,7 @@ createApp(App)
     .use(store)
     .use(VueGoogleMaps, {
         load: {
-            key: '***REMOVED***',
+            key: import.meta.env.VITE_GMAP_KEY,
             libraries: "places"
         },
     })
