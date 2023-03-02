@@ -280,8 +280,9 @@ export default {
       } 
     },
     async getWeather(coords) {
+      const osm_key = import.meta.env.VITE_OPENWEATHER_KEY
       const res = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?lat=${coords.lat()}&lon=${coords.lng()}&units=metric&appid=***REMOVED***`
+        `https://api.openweathermap.org/data/2.5/weather?lat=${coords.lat()}&lon=${coords.lng()}&units=metric&appid=${osm_key}`
       );
       const data = await res.json();
 
@@ -290,6 +291,7 @@ export default {
       return data;
     },
     async getNearbyPlaces(coords) {
+      const fsq_key = import.meta.env.VITE_FOURSQUARE_KEY
       const res = await fetch(
         `https://api.foursquare.com/v3/places/search?ll=${coords.lat()},${coords.lng()}&limit=50&radius=10000&sort=distance
           &fields=fsq_id,name,geocodes,categories,location,link,rating,hours,price,photos`,
@@ -297,7 +299,7 @@ export default {
           method: "get",
           headers: new Headers({
             Accept: "application/json",
-            Authorization: "***REMOVED***",
+            Authorization: fsq_key,
           }),
         }
       );
